@@ -1,0 +1,27 @@
+{
+  "name": "url-shortner-be",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamranalisheeno9/URL-shortner-BE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamranalisheeno9/URL-shortner-BE/issues"
+  },
+  "homepage": "https://github.com/kamranalisheeno9/URL-shortner-BE#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.12.1",
+    "nanoid": "^5.1.2",
+    "node-cron": "^3.0.3",
+    "nodemon": "^3.1.9"
+  }
+}
