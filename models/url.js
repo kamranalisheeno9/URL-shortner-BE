@@ -19,6 +19,10 @@ const urlSchema = new mongoose.Schema(
       required: true,
       // expires: 0 // Optional: TTL index to auto-delete document when expiresAt is reached
     },
+    isExpired: {
+      type: Boolean,
+      require: true,
+    },
   },
   { timestamps: true }
 );
