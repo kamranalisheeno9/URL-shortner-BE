@@ -50,8 +50,8 @@ const handleGetAllUrls = async (req, res) => {
 
 const handleGetUrlByShortId = async (req, res) => {
   const shortId = req.params.shortId;
-  const ShortenedUrl = await URLShortened.findById(shortId);
   try {
+    const ShortenedUrl = await URLShortened.findById(shortId);
     return res.status(201).json({
       ShortenedUrl,
     });

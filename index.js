@@ -23,16 +23,29 @@ app.get("/", async (req, res) => {
     allUrls,
   });
 });
-// app.get("/url/:shortId", async (req, res) => {
-//   const shortId = req.params.shortId;
-//   const urlSearched = await URL.findById(shortId);
-//   if(!urlSearched){
-//    return res.render("404");
-//   }
-//   else{
-//     return res.render("main")
-//   }
-// });
+
+// Page routes
+
+app.get('/',(req,res)=>{
+  return res.render('main')
+})
+
+app.get("/url/:shortId", async (req, res) => {
+  try {
+    const { shortId } = req.params;
+
+    const urlSearched = await URL.findOne({ _id: shortId });
+
+    if (!urlSearched) {
+      return res.status(404).render("404");
+    }
+
+    return res.redirect(urlSearched.originalUrl);
+  } catch (error) {
+    console.error("Error fetching URL:", error);
+    return res.status(500).render("404");
+  }
+});
 
 // Middlewares
 
