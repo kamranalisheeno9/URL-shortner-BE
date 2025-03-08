@@ -12,7 +12,7 @@ const handleURLCreation = async (req, res) => {
     const urlShortened = await URLShortened.create({
       originalUrl: originalUrl,
       shortenedUrl: shortId,
-      expiresAt: expires,
+      expiresAt: Number(expires) * 60 * 1000,
       isExpired: false,
     });
     return res.status(201).json({
