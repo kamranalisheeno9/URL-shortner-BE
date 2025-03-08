@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found | Apro URL Shortener</title>
+    <title>All URLs | Apro URL Shortener</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -17,11 +17,10 @@
             background: linear-gradient(135deg, #5e4fa2 0%, #3281c4 100%);
             color: #fff;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
 
         /* Navbar Styling */
@@ -79,55 +78,54 @@
             color: #3281c4;
         }
 
-        /* Main 404 Section Styling */
+        /* Main Content Styling */
         .main-container {
             flex: 1;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
+            align-items: flex-start;
+            padding: 40px 20px;
             z-index: 1;
         }
 
-        .main-container h1 {
-            font-size: 120px;
+        .url-list {
+            background-color: #fff;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 800px;
+            overflow-x: auto;
+        }
+
+        .url-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .url-list th, .url-list td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .url-list th {
+            background-color: #f5f5f5;
             font-weight: 600;
-            color: #fff;
-            opacity: 0.9;
-            margin-bottom: 10px;
+            color: #5e4fa2;
         }
 
-        .main-container h2 {
-            font-size: 28px;
+        .url-list td {
+            font-size: 14px;
+        }
+
+        .url-list .status-expired {
+            color: #e74c3c;
             font-weight: 500;
-            color: #d1d1d1;
-            margin-bottom: 20px;
         }
 
-        .main-container p {
-            font-size: 16px;
-            color: #e0e0e0;
-            margin-bottom: 30px;
-        }
-
-        .back-btn {
-            padding: 12px 30px;
-            font-size: 16px;
-            font-family: 'Poppins', sans-serif;
+        .url-list .status-active {
+            color: #2ecc71;
             font-weight: 500;
-            background-color: #3281c4;
-            color: #fff;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-        }
-
-        .back-btn:hover {
-            background-color: #2a70a8;
         }
 
         /* Wavy Background */
@@ -156,12 +154,46 @@
         </div>
     </nav>
 
-    <!-- Main 404 Section -->
+    <!-- Main Content -->
     <div class="main-container">
-        <h1>404</h1>
-        <h2>Page Not Found</h2>
-        <p>Oops! It seems the URL you’re looking for has gone missing. Let’s get you back on track.</p>
-        <a href="/" class="back-btn">Back to Home</a>
+        <div class="url-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Clicks</th>
+                        <th>Original URL</th>
+                        <th>Short ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="status-active">Active</td>
+                        <td>1,234</td>
+                        <td>https://www.example.com/article-1</td>
+                        <td>abc123</td>
+                    </tr>
+                    <tr>
+                        <td class="status-expired">Expired</td>
+                        <td>567</td>
+                        <td>https://www.example.com/old-page</td>
+                        <td>xyz789</td>
+                    </tr>
+                    <tr>
+                        <td class="status-active">Active</td>
+                        <td>890</td>
+                        <td>https://www.example.com/news</td>
+                        <td>def456</td>
+                    </tr>
+                    <tr>
+                        <td class="status-expired">Expired</td>
+                        <td>123</td>
+                        <td>https://www.example.com/archive</td>
+                        <td>ghi101</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Wavy Background -->

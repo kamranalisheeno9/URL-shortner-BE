@@ -29,6 +29,9 @@ app.get("/", async (req, res) => {
 app.get('/',(req,res)=>{
   return res.render('main')
 })
+app.get('/listedUrls',(req,res)=>{
+  return res.render('allUrls')
+})
 
 app.get("/url/:shortId", async (req, res) => {
   try {
@@ -39,7 +42,9 @@ app.get("/url/:shortId", async (req, res) => {
     if (!urlSearched) {
       return res.status(404).render("404");
     }
-
+    if(urlSearched.isExpired){
+      return res.status(404).render("404");
+    }
     return res.redirect(urlSearched.originalUrl);
   } catch (error) {
     console.error("Error fetching URL:", error);
