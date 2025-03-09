@@ -14,6 +14,7 @@ const handleURLCreation = async (req, res) => {
       shortenedUrl: shortId,
       expiresAt: Number(expires) * 60 * 1000,
       isExpired: false,
+      clicks: 0,
     });
     return res.status(201).json({
       message: "Post url",

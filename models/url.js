@@ -23,6 +23,10 @@ const urlSchema = new mongoose.Schema(
       type: Boolean,
       require: true,
     },
+    clicks: {
+      type: Number,
+      // required: true,
+    },
   },
   { timestamps: true }
 );

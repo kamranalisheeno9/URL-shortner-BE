@@ -26,25 +26,29 @@ app.get("/", async (req, res) => {
 
 // Page routes
 
-app.get('/',(req,res)=>{
-  return res.render('main')
-})
-app.get('/listedUrls',(req,res)=>{
-  return res.render('allUrls')
-})
+app.get("/", (req, res) => {
+  return res.render("main");
+});
+app.get("/listedUrls", async (req, res) => {
+  const allUrls = await URL.find({});
+  return res.render("allUrls", {
+    allUrls,
+  });
+});
 
 app.get("/url/:shortId", async (req, res) => {
   try {
     const { shortId } = req.params;
 
-    const urlSearched = await URL.findOne({ _id: shortId });
+    const urlSearched = await URL.findOne({ shortenedUrl: shortId });
 
     if (!urlSearched) {
       return res.status(404).render("404");
     }
-    if(urlSearched.isExpired){
+    if (urlSearched.isExpired) {
       return res.status(404).render("404");
     }
+    urlSearched.clicks += 1;
     return res.redirect(urlSearched.originalUrl);
   } catch (error) {
     console.error("Error fetching URL:", error);

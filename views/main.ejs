@@ -1,177 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Apro URL Shortener</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #5e4fa2 0%, #3281c4 100%);
-            color: #fff;
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #5e4fa2 0%, #3281c4 100%);
+        color: #fff;
+        min-height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
 
-        /* Navbar Styling */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background: transparent;
-        }
+      /* Navbar Styling */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px;
+        background: transparent;
+      }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 600;
-            color: #fff;
-        }
+      .logo {
+        font-size: 24px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .logo a {
+        text-decoration: none;
+        color: #fff;
 
-        .logo span {
-            font-size: 14px;
-            font-weight: 400;
-            color: #d1d1d1;
-            margin-left: 5px;
-        }
+      }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+      .logo span {
+        font-size: 14px;
+        font-weight: 400;
+        color: #d1d1d1;
+        margin-left: 5px;
+      }
 
-        .nav-links a {
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 400;
-            color: #d1d1d1;
-            transition: color 0.3s ease;
-        }
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
 
-        .nav-links a:hover {
-            color: #fff;
-        }
+      .nav-links a {
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 400;
+        color: #d1d1d1;
+        transition: color 0.3s ease;
+      }
 
-        .nav-links .get-started {
-            background-color: #fff;
-            color: #5e4fa2;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 500;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+      .nav-links a:hover {
+        color: #fff;
+      }
 
-        .nav-links .get-started:hover {
-            background-color: #e0e0e0;
-            color: #3281c4;
-        }
+      .nav-links .get-started {
+        background-color: #fff;
+        color: #5e4fa2;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: 500;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
 
-        /* Main Section Styling */
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: calc(100vh - 80px);
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
+      .nav-links .get-started:hover {
+        background-color: #e0e0e0;
+        color: #3281c4;
+      }
 
-        .main-container h1 {
-            font-size: 36px;
-            font-weight: 600;
-            margin-bottom: 30px;
-        }
+      /* Main Section Styling */
+      .main-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 80px);
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
 
-        .url-form {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background-color: #fff;
-            padding: 10px 15px;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            width: 500px;
-        }
+      .main-container h1 {
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 30px;
+      }
 
-        .url-input {
-            flex: 1;
-            padding: 10px;
-            font-size: 16px;
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-            border: none;
-            outline: none;
-            background: transparent;
-        }
+      .url-form {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background-color: #fff;
+        padding: 10px 15px;
+        border-radius: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        width: 500px;
+      }
 
-        .url-input::placeholder {
-            color: #999;
-        }
+      .url-input {
+        flex: 1;
+        padding: 10px;
+        font-size: 16px;
+        font-family: "Poppins", sans-serif;
+        color: #333;
+        border: none;
+        outline: none;
+        background: transparent;
+      }
 
-        .shorten-btn {
-            padding: 10px 25px;
-            font-size: 16px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            background-color: #3281c4;
-            color: #fff;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+      .url-input::placeholder {
+        color: #999;
+      }
 
-        .shorten-btn:hover {
-            background-color: #2a70a8;
-        }
+      .shorten-btn {
+        padding: 10px 25px;
+        font-size: 16px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        background-color: #3281c4;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-        /* Wavy Background */
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 150px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.3' d='M0,160L48,186.7C96,213,192,267,288,261.3C384,256,480,192,576,181.3C672,171,768,213,864,213.3C960,213,1056,171,1152,149.3C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: 0;
-        }
+      .shorten-btn:hover {
+        background-color: #2a70a8;
+      }
+
+      /* Wavy Background */
+      .wave {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 150px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.3' d='M0,160L48,186.7C96,213,192,267,288,261.3C384,256,480,192,576,181.3C672,171,768,213,864,213.3C960,213,1056,171,1152,149.3C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+        background-size: cover;
+        background-repeat: no-repeat;
+        z-index: 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navbar -->
     <nav>
-        <div class="logo">Apro <span>Shortener</span></div>
-        <div class="nav-links">
-            <a href="#">Pricing</a>
-            <a href="#">Blog</a>
-            <a href="#">Login</a>
-            <a href="#" class="get-started">Get Started</a>
-        </div>
+      <div class="logo">
+        <a href="/"> URLPro <span>Shortener</span></a>
+      </div>
+      <div class="nav-links">
+        <a href="/listedUrls">URL List</a>
+      </div>
     </nav>
 
     <!-- Main Section -->
     <div class="main-container">
-        <h1>Apro URL Shortener</h1>
-        <div class="url-form">
-            <input type="text" class="url-input" placeholder="Paste a long url" value="">
-            <button class="shorten-btn">Shorten</button>
-        </div>
+      <h1>Apro URL Shortener</h1>
+      <div class="url-form">
+        <input
+          type="text"
+          class="url-input"
+          placeholder="Paste a long url"
+          value=""
+        />
+        <button class="shorten-btn">Shorten</button>
+      </div>
     </div>
 
     <!-- Wavy Background -->
     <div class="wave"></div>
-</body>
+  </body>
 </html>
