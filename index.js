@@ -6,7 +6,8 @@ const { cronForCheckingExpiredUrl } = require("./services/cron");
 const URL = require("./models/url");
 const { connectDB } = require("./connection");
 const urlRouter = require("./routes/url");
-
+const staticRouter = require("./routes/staticRoutes");
+const userRouter = require("./routes/user");
 const app = express();
 const port = 3002;
 
@@ -15,8 +16,6 @@ const port = 3002;
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
-// EJS Page Routes
-
 app.get("/", async (req, res) => {
   const allUrls = await URL.find({});
   res.render("main", {
@@ -24,42 +23,11 @@ app.get("/", async (req, res) => {
   });
 });
 
-// Page routes
-
-app.get("/", (req, res) => {
-  return res.render("main");
-});
-app.get("/listedUrls", async (req, res) => {
-  const allUrls = await URL.find({});
-  return res.render("allUrls", {
-    allUrls,
-  });
-});
-
-app.get("/url/:shortId", async (req, res) => {
-  try {
-    const { shortId } = req.params;
-
-    const urlSearched = await URL.findOne({ shortenedUrl: shortId });
-
-    if (!urlSearched) {
-      return res.status(404).render("404");
-    }
-    if (urlSearched.isExpired) {
-      return res.status(404).render("404");
-    }
-    urlSearched.clicks += 1;
-    return res.redirect(urlSearched.originalUrl);
-  } catch (error) {
-    console.error("Error fetching URL:", error);
-    return res.status(500).render("404");
-  }
-});
-
 // Middlewares
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 // Connecting DB
 
@@ -78,6 +46,8 @@ cronForCheckingExpiredUrl();
 // Routes
 
 app.use("/api/urls", urlRouter);
+app.use("/", staticRouter);
+app.use("/api/", userRouter);
 
 // PORT Listening at
 app.listen(port, () => {

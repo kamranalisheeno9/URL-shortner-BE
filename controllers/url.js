@@ -2,12 +2,18 @@
 
 const URLShortened = require("../models/url");
 const { nanoid } = require("nanoid");
+const { errorHandler } = require("../helpers/errorHandler");
 
 // POST data for URL
 
 const handleURLCreation = async (req, res) => {
   try {
     const { originalUrl, expires } = req.body;
+    if (!originalUrl) {
+      return res.status(400).json({
+        message: "Please fill the fields properly.",
+      });
+    }
     const shortId = nanoid();
     const urlShortened = await URLShortened.create({
       originalUrl: originalUrl,
@@ -22,11 +28,7 @@ const handleURLCreation = async (req, res) => {
       status: "Success",
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Internal server error",
-      status: "Failed",
-      error: error.message,
-    });
+    errorHandler(res, error);
   }
 };
 
@@ -39,11 +41,7 @@ const handleGetAllUrls = async (req, res) => {
       allUrlShortened,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Internal server error",
-      status: "Failed",
-      error: error.message,
-    });
+    errorHandler(res, error);
   }
 };
 
@@ -57,11 +55,7 @@ const handleGetUrlByShortId = async (req, res) => {
       ShortenedUrl,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Internal server error",
-      status: "Failed",
-      error: error.message,
-    });
+    errorHandler(res, error);
   }
 };
 
@@ -77,13 +71,7 @@ const handleUpdateUrlByShortId = async (req, res) => {
     return res.status(201).json({
       message: `Updated the URL ${updatedUrl.originalUrl}`,
     });
-  } catch (error) {
-    return res.status(500).json({
-      message: "Internal server error",
-      status: "Failed",
-      error: error.message,
-    });
-  }
+  } catch (error) {}
 };
 
 // Deleting URL by Id
@@ -96,11 +84,7 @@ const handleDeleteUrlByShortId = async (req, res) => {
       message: `Deleted the url  ${deletedUrl.originalUrl}`,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: "Internal server error",
-      status: "Failed",
-      error: error.message,
-    });
+    errorHandler(res, error);
   }
 };
 

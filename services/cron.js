@@ -10,7 +10,8 @@ const checkExpiry = (updatedAt, expiry) => {
   const updatedTime = new Date(updatedAt);
   const currentTime = new Date();
   const timeDifference = currentTime - updatedTime;
-  return timeDifference >= expiry;
+  if (expiry == 0) return false 
+   return timeDifference >= expiry;
 };
 
 // Finding expired URLs and pushing into array and Updating status of expired URL to true.

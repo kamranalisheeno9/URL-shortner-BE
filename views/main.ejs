@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Apro URL Shortener</title>
+    <title>URL Pro Shortener</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+
     <style>
       * {
         margin: 0;
@@ -41,7 +42,6 @@
       .logo a {
         text-decoration: none;
         color: #fff;
-
       }
 
       .logo span {
@@ -109,11 +109,11 @@
         padding: 10px 15px;
         border-radius: 30px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        width: 500px;
+        width: 650px;
       }
 
       .url-input {
-        flex: 1;
+        flex: 3;
         padding: 10px;
         font-size: 16px;
         font-family: "Poppins", sans-serif;
@@ -121,10 +121,50 @@
         border: none;
         outline: none;
         background: transparent;
+        border-right: 2px solid #e0e0e0;
       }
 
       .url-input::placeholder {
         color: #999;
+      }
+
+      .expire-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .expire-label {
+        font-size: 14px;
+        color: #333;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .expire-input {
+        flex: 1;
+        padding: 10px;
+        font-size: 16px;
+        font-family: "Poppins", sans-serif;
+        color: #333;
+        border: none;
+        outline: none;
+        background: #f0f0f0;
+        border-radius: 15px;
+        width: 100px;
+        text-align: center;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .expire-input::placeholder {
+        color: #999;
+        text-align: center;
+      }
+
+      .expire-input:focus {
+        background-color: #e0e0e0;
+        box-shadow: 0 0 5px rgba(50, 129, 196, 0.5);
       }
 
       .shorten-btn {
@@ -142,6 +182,28 @@
 
       .shorten-btn:hover {
         background-color: #2a70a8;
+      }
+
+      /* Message Styling */
+      .message {
+        margin-top: 15px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        display: none; /* Hidden by default */
+        width: 650px;
+        text-align: center;
+      }
+
+      .error {
+        background-color: #ffcccc;
+        color: #cc0000;
+        display: none;
+      }
+
+      .success {
+        background-color: #ccffcc;
+        color: #006600;
+        display: none;
       }
 
       /* Wavy Background */
@@ -171,19 +233,42 @@
 
     <!-- Main Section -->
     <div class="main-container">
-      <h1>Apro URL Shortener</h1>
+      <h1>URL Pro Shortener</h1>
       <div class="url-form">
         <input
           type="text"
           class="url-input"
+          id="url-input"
           placeholder="Paste a long url"
           value=""
         />
-        <button class="shorten-btn">Shorten</button>
+        <div class="expire-container">
+          <span class="expire-label">Expires in:</span>
+          <input
+            type="number"
+            class="expire-input"
+            id="expire-input"
+            placeholder="Min"
+            min="1"
+            value=""
+          />
+        </div>
+        <button onclick="getShortenedURL()" class="shorten-btn">
+          Generate
+        </button>
+      </div>
+      <!-- Message Display Area -->
+      <div class="message error" id="error-message">
+        An error occurred. Please try again.
+      </div>
+      <div class="message success" id="success-message">
+        URL shortened successfully! Short ID: ABC123
       </div>
     </div>
 
     <!-- Wavy Background -->
     <div class="wave"></div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/script.js"></script>
   </body>
 </html>

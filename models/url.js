@@ -21,7 +21,6 @@ const urlSchema = new mongoose.Schema(
     },
     isExpired: {
       type: Boolean,
-      require: true,
     },
     clicks: {
       type: Number,
