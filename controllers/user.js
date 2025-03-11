@@ -48,10 +48,7 @@ const handleUserLogin = async (req, res) => {
       });
     }
     return res
-      .status(200)
-      .json({
-        message: "User logged in.",
-      })
+      .status(200).redirect('/listed-urls')
      
   } catch (error) {
     errorHandler(res, error);
