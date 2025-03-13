@@ -1,6 +1,7 @@
 // Initialiation
 
 const express = require("express");
+const cookieParser = require('cookie-parser');
 const path = require("path");
 const { cronForCheckingExpiredUrl } = require("./services/cron");
 const URL = require("./models/url");
@@ -28,6 +29,7 @@ app.get("/", async (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(cookieParser());
 
 // Connecting DB
 

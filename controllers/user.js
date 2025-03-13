@@ -1,6 +1,10 @@
 const User = require("../models/user");
 const { errorHandler } = require("../helpers/errorHandler");
-
+const { v4: uuidv4 } = require("uuid");
+const {
+  getSessionIdMapToUser,
+  setSessionIdMapToUser,
+} = require("../services/auth");
 const handleUserSignup = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
@@ -47,9 +51,10 @@ const handleUserLogin = async (req, res) => {
         message: "There is no such user.",
       });
     }
-    return res
-      .status(200).redirect('/listed-urls')
-     
+    const sessionId = uuidv4();
+    res.cookie("uuid", sessionId);
+    setSessionIdMapToUser(sessionId, currentUser);
+    return res.status(200).redirect("/listed-urls");
   } catch (error) {
     errorHandler(res, error);
   }
