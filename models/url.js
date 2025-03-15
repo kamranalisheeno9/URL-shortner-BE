@@ -15,7 +15,7 @@ const urlSchema = new mongoose.Schema(
       required: true,
     },
     expiresAt: {
-      type: Number,
+      type: String,
       required: true,
       // expires: 0 // Optional: TTL index to auto-delete document when expiresAt is reached
     },
@@ -25,6 +25,10 @@ const urlSchema = new mongoose.Schema(
     clicks: {
       type: Number,
       // required: true,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
     },
   },
   { timestamps: true }

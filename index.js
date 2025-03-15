@@ -1,14 +1,19 @@
 // Initialiation
 
 const express = require("express");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const path = require("path");
 const { cronForCheckingExpiredUrl } = require("./services/cron");
 const URL = require("./models/url");
 const { connectDB } = require("./connection");
 const urlRouter = require("./routes/url");
-const staticRouter = require("./routes/staticRoutes");
+const loginRouter = require("./routes/loginRoutes");
 const userRouter = require("./routes/user");
+const generalURLRouter = require("./routes/generalUrlRoutes");
+const {
+  restrictTheUserToUrl,
+  restrictTheUserToLogin,
+} = require("./middlewares/auth");
 const app = express();
 const port = 3002;
 
@@ -17,18 +22,11 @@ const port = 3002;
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
-app.get("/", async (req, res) => {
-  const allUrls = await URL.find({});
-  res.render("main", {
-    allUrls,
-  });
-});
-
 // Middlewares
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+// app.use(express.static("public"));
 app.use(cookieParser());
 
 // Connecting DB
@@ -47,8 +45,9 @@ cronForCheckingExpiredUrl();
 
 // Routes
 
-app.use("/api/urls", urlRouter);
-app.use("/", staticRouter);
+app.use("/api/urls", restrictTheUserToUrl, urlRouter);
+app.use("/url", restrictTheUserToUrl, generalURLRouter);
+app.use("/", restrictTheUserToLogin, loginRouter);
 app.use("/api/", userRouter);
 
 // PORT Listening at

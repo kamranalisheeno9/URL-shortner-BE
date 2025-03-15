@@ -77,6 +77,7 @@
         font-weight: 400;
         color: #d1d1d1;
         transition: color 0.3s ease;
+        cursor: pointer;
       }
       .logo a {
         text-decoration: none;
@@ -137,7 +138,7 @@
         color: #2ecc71;
         font-weight: 500;
       }
-      .clicks-wrapper{
+      .clicks-wrapper {
         display: flex;
         justify-content: center;
       }
@@ -163,7 +164,8 @@
         <a href="/"> URLPro <span>Shortener</span></a>
       </div>
       <div class="nav-links">
-        <a href="/listedUrls">URL List</a>
+        <a href="/url/list">URL List</a>
+        <a onclick="logoutUser" id="logout">Logout</a>
       </div>
     </nav>
 
@@ -189,7 +191,7 @@
               >
                 <%= url.isExpired ? 'Expired' : 'Active' %>
               </td>
-              <td class="clicks-wrapper" ><%= url.clicks %></td>
+              <td class="clicks-wrapper"><%= url.clicks %></td>
               <td class="original-url"><%= url.originalUrl %></td>
               <td>
                 <a target="_blank" href="/url/<%= url.shortenedUrl %>"
@@ -244,5 +246,15 @@
     <script src="/js/script.js"></script>
     <!-- Wavy Background -->
     <div class="wave"></div>
+    <script>
+      const logoutBtn = document.getElementById("logout");
+      
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+          window.location.replace("/");
+        });
+      }
+    </script>
   </body>
 </html>

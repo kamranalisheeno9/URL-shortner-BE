@@ -15,18 +15,16 @@ const handleURLCreation = async (req, res) => {
       });
     }
     const shortId = nanoid();
+    const user = req.user;
     const urlShortened = await URLShortened.create({
       originalUrl: originalUrl,
       shortenedUrl: shortId,
       expiresAt: Number(expires) * 60 * 1000,
       isExpired: false,
+      createdBy: user.id,
       clicks: 0,
     });
-    return res.status(201).json({
-      message: "Post url",
-      result: urlShortened,
-      status: "Success",
-    });
+    return res.status(201).redirect('/url/list')
   } catch (error) {
     errorHandler(res, error);
   }

@@ -3,15 +3,16 @@ const express = require("express");
 const URL = require("../models/url");
 const router = express.Router();
 
-// Home route
 router.get("/", (req, res) => {
   return res.render("main");
 });
 
 // All URLs listing route
-router.get("/listed-urls", async (req, res) => {
+router.get("/list", async (req, res) => {
   try {
-    const allUrls = await URL.find({});
+    const allUrls = await URL.find({
+      createdBy: req.user.id,
+    });
     return res.render("allUrls", {
       allUrls,
     });
@@ -21,17 +22,8 @@ router.get("/listed-urls", async (req, res) => {
   }
 });
 
-router.get("/signup", (req, res) => {
-  return res.render("signup", {
-    message: { type: "success", text: "User registered!" },
-  });
-});
-router.get("/login", (req, res) => {
-  return res.render("login");
-});
-
 // URL redirection route
-router.get("/url/:shortId", async (req, res) => {
+router.get("/:shortId", async (req, res) => {
   try {
     const { shortId } = req.params;
     const urlSearched = await URL.findOne({ shortenedUrl: shortId });

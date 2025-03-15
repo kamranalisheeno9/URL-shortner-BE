@@ -63,6 +63,7 @@
         font-weight: 400;
         color: #d1d1d1;
         transition: color 0.3s ease;
+        cursor: pointer;
       }
 
       .nav-links a:hover {
@@ -227,38 +228,42 @@
         <a href="/"> URLPro <span>Shortener</span></a>
       </div>
       <div class="nav-links">
-        <a href="/listedUrls">URL List</a>
-        <a href="/signup">Signup</a>
-        <a href="/login">Login</a>
+        <a href="/url/list">URL List</a>
+        <a onclick="logoutUser" id="logout">Logout</a>
+        <!-- <a href="/signup">Signup</a>
+        <a href="/login">Login</a> -->
       </div>
     </nav>
 
     <!-- Main Section -->
     <div class="main-container">
       <h1>URL Pro Shortener</h1>
-      <div class="url-form">
-        <input
-          type="text"
-          class="url-input"
-          id="url-input"
-          placeholder="Paste a long url"
-          value=""
-        />
-        <div class="expire-container">
-          <span class="expire-label">Expires in:</span>
+      <form action="/api/urls" method="POST">
+        <div class="url-form">
           <input
-            type="number"
-            class="expire-input"
-            id="expire-input"
-            placeholder="Min"
-            min="1"
+            type="text"
+            class="url-input"
+            id="url-input"
+            name="originalUrl"
+            placeholder="Paste a long URL"
             value=""
+            required
           />
+          <div class="expire-container">
+            <span class="expire-label">Expires in:</span>
+            <input
+              type="number"
+              class="expire-input"
+              id="expire-input"
+              name="expiresAt"
+              placeholder="Minutes"
+              value="0"
+              required
+            />
+          </div>
+          <button type="submit" class="shorten-btn">Generate</button>
         </div>
-        <button onclick="getShortenedURL()" class="shorten-btn">
-          Generate
-        </button>
-      </div>
+      </form>
       <!-- Message Display Area -->
       <div class="message error" id="error-message">
         An error occurred. Please try again.
@@ -270,7 +275,17 @@
 
     <!-- Wavy Background -->
     <div class="wave"></div>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/script.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/script.js"></script> -->
+    <script>
+      const logoutBtn = document.getElementById("logout");
+      
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+          window.location.replace("/");
+        });
+      }
+    </script>
   </body>
 </html>

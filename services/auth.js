@@ -1,14 +1,17 @@
-const sessionIdMapToUser = new Map();
+const jwt = require("jsonwebtoken");
 
-const setSessionIdMapToUser = (id, user) => {
-    sessionIdMapToUser.set(id, user);
-};
-
-const getSessionIdMapToUser = (id) => {
-    return sessionIdMapToUser.get(id);
+const setJwtForLogin = (user, secret) => {
+  const token = jwt.sign(
+    {
+      id: user._id,
+      email: user.email,
+    },
+    secret,
+    { expiresIn: 60 * 60 }
+  );
+  return token;
 };
 
 module.exports = {
-    getSessionIdMapToUser,
-    setSessionIdMapToUser
+  setJwtForLogin,
 };

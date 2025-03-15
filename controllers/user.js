@@ -1,6 +1,9 @@
 const User = require("../models/user");
 const { errorHandler } = require("../helpers/errorHandler");
 const { v4: uuidv4 } = require("uuid");
+const { setJwtForLogin } = require("../services/auth");
+require("dotenv").config();
+const secretKey = process.env.JWT_SECRET;
 const {
   getSessionIdMapToUser,
   setSessionIdMapToUser,
@@ -20,10 +23,7 @@ const handleUserSignup = async (req, res) => {
       password,
     });
     console.log("Result", result);
-    return res.status(201).json({
-      message: "User created",
-      result,
-    });
+    return res.status(201).redirect('/url');
   } catch (error) {
     errorHandler(res, error);
   }
@@ -51,10 +51,12 @@ const handleUserLogin = async (req, res) => {
         message: "There is no such user.",
       });
     }
-    const sessionId = uuidv4();
-    res.cookie("uuid", sessionId);
-    setSessionIdMapToUser(sessionId, currentUser);
-    return res.status(200).redirect("/listed-urls");
+    // const sessionId = uuidv4();
+
+    const token = setJwtForLogin(currentUser, secretKey);
+    res.cookie("token", token);
+    // setSessionIdMapToUser(sessionId, currentUser);
+    return res.status(200).redirect("/url");
   } catch (error) {
     errorHandler(res, error);
   }
