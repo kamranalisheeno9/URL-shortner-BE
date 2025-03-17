@@ -1,136 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URLPro - Log In</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: "Poppins", sans-serif;
-            background: linear-gradient(135deg, #5e4fa2 0%, #3281c4 100%);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #fff; /* Removed the gradient background */
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
 
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            width: 400px;
-            text-align: center;
-        }
+      .container {
+        display: flex;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 0; /* Removed border-radius for full-size effect */
+        box-shadow: none; /* Removed shadow for a cleaner look */
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+      }
 
-        h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
+      .left-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        text-align: center;
+        background: #5e4fa2; /* Solid color instead of gradient and wave */
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
 
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
+      .left-section h1 {
+        font-size: 48px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #fff;
+      }
 
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 5px;
-            color: #fff;
-        }
+      .left-section p {
+        font-size: 16px;
+        color: #d1d1d1;
+        margin-bottom: 20px;
+      }
 
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 10px;
-            background: #fff;
-            color: #333;
-            outline: none;
-        }
+      .logo {
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
 
-        .btn {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            font-weight: 500;
-            background-color: #3281c4;
-            color: #fff;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+      .right-section {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        background: #fff;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        color: #333;
+      }
 
-        .btn:hover {
-            background-color: #2a70a8;
-        }
+      .login-form {
+        width: 100%;
+        max-width: 300px;
+      }
 
-        .message {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            display: <%= typeof message !== 'undefined' ? 'block' : 'none' %>;
-        }
+      .login-form h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
 
-        .error {
-            background-color: #ffcccc;
-            color: #cc0000;
-        }
+      .login-form p {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+      }
 
-        .success {
-            background-color: #ccffcc;
-            color: #006600;
-        }
+      .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+      }
 
-        .signup-link {
-            margin-top: 15px;
-            font-size: 14px;
-        }
+      .form-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 5px;
+        color: #333;
+      }
 
-        .signup-link a {
-            color: #d1d1d1;
-            text-decoration: none;
-        }
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: #fff;
+        color: #333;
+        outline: none;
+      }
 
-        .signup-link a:hover {
-            color: #fff;
-        }
+      .btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: 500;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 10px;
+      }
+
+      .btn:hover {
+        background-color: #333;
+      }
+
+      .google-btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: 500;
+        background-color: #fff;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .google-btn:hover {
+        background-color: #f1f1f1;
+      }
+
+      .forgot-password {
+        font-size: 12px;
+        color: #666;
+        text-align: right;
+        margin-bottom: 20px;
+      }
+
+      .signup-link {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .signup-link a {
+        color: #3281c4;
+        text-decoration: none;
+      }
+
+      .signup-link a:hover {
+        text-decoration: underline;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Log In</h1>
-        <% if (typeof message !== 'undefined') { %>
-            <div class="message <%= message.type %>"><%= message.text %></div>
-        <% } %>
-        <form action="/api/login" method="POST">
+      <div class="left-section">
+        <div class="logo">⭐</div>
+        <h1>Welcome to URL Pro</h1>
+        <p>
+            Make Every Link Count – Shorten and Optimize with URL Pro!
+        </p>
+        <p>© 2022 URLPro. All rights reserved.</p>
+      </div>
+      <div class="right-section">
+        <div class="login-form">
+          <h2>Welcome Back!</h2>
+          <p>
+            Don't have an account?
+            <a href="/signup">Create a new account now</a>, it's FREE! Takes
+            less than a minute.
+          </p>
+          <form action="/api/login" method="POST">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required />
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="example@xample.com"
+                value=""
+                required
+              />
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required />
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required />
             </div>
-            <button type="submit" class="btn">Log In</button>
-        </form>
-        <div class="signup-link">
+            <button type="submit" class="btn">Log In Now</button>
+
+            <div class="forgot-password">
+              Forgot password? <a href="#">Click here</a>
+            </div>
+          </form>
+          <div class="signup-link">
             Don't have an account? <a href="/signup">Sign Up</a>
+          </div>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

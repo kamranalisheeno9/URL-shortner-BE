@@ -10,8 +10,8 @@ const checkExpiry = (updatedAt, expiry) => {
   const updatedTime = new Date(updatedAt);
   const currentTime = new Date();
   const timeDifference = currentTime - updatedTime;
-  if (expiry == 0) return false 
-   return timeDifference >= expiry;
+  if (expiry == 0) return false;
+  return timeDifference >= expiry;
 };
 
 // Finding expired URLs and pushing into array and Updating status of expired URL to true.
@@ -23,7 +23,10 @@ const findingExpiredURLS = async () => {
       const isExpiredTrue = checkExpiry(url.updatedAt, url.expiresAt);
       if (isExpiredTrue) {
         try {
-          await URLShortened.findByIdAndUpdate(url._id, { isExpired: true });
+          const expiredUrl = await URLShortened.findByIdAndUpdate(url._id, {
+            isExpired: true,
+          });
+          console.log("expiredUrl", expiredUrl);
         } catch (error) {
           console.log("Error from updating isExpired");
         }

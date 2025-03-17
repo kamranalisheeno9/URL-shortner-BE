@@ -4,7 +4,10 @@ const URL = require("../models/url");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  return res.render("main");
+  return res.render("main",{
+    currentUser: req.user.name,
+
+  });
 });
 
 // All URLs listing route
@@ -15,6 +18,7 @@ router.get("/list", async (req, res) => {
     });
     return res.render("allUrls", {
       allUrls,
+      currentUser: req.user.name,
     });
   } catch (error) {
     console.error("Error fetching all URLs:", error);
@@ -29,11 +33,15 @@ router.get("/:shortId", async (req, res) => {
     const urlSearched = await URL.findOne({ shortenedUrl: shortId });
 
     if (!urlSearched) {
-      return res.status(404).render("404");
+      return res.status(404).render("404",{
+        customMessage:''
+      });
     }
 
     if (urlSearched.isExpired) {
-      return res.status(410).render("404");
+      return res.status(410).render("404",{
+        customMessage:''
+      });
     }
 
     urlSearched.clicks += 1;

@@ -14,7 +14,7 @@
 
         body {
             font-family: "Poppins", sans-serif;
-            background: linear-gradient(135deg, #5e4fa2 0%, #3281c4 100%);
+            background: #fff; /* Removed gradient background */
             color: #fff;
             min-height: 100vh;
             display: flex;
@@ -24,16 +24,64 @@
         }
 
         .container {
+            display: flex;
             background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            width: 400px;
-            text-align: center;
+            border-radius: 0; /* Removed border-radius for full-size effect */
+            box-shadow: none; /* Removed shadow for a cleaner look */
+            width: 100vw; /* Full viewport width */
+            height: 100vh; /* Full viewport height */
         }
 
-        h1 {
-            font-size: 28px;
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            background: #5e4fa2; /* Solid color to match login UI */
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .left-section h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .left-section p {
+            font-size: 16px;
+            color: #d1d1d1;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background: #fff;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            color: #333;
+        }
+
+        .signup-form {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .signup-form h2 {
+            font-size: 24px;
             font-weight: 600;
             margin-bottom: 20px;
         }
@@ -48,14 +96,14 @@
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 5px;
-            color: #fff;
+            color: #333;
         }
 
         .form-group input {
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            border: none;
+            border: 1px solid #ccc;
             border-radius: 10px;
             background: #fff;
             color: #333;
@@ -67,7 +115,7 @@
             padding: 10px;
             font-size: 16px;
             font-weight: 500;
-            background-color: #3281c4;
+            background-color: #000; /* Changed to black to match login UI */
             color: #fff;
             border: none;
             border-radius: 20px;
@@ -76,7 +124,7 @@
         }
 
         .btn:hover {
-            background-color: #2a70a8;
+            background-color: #333;
         }
 
         .message {
@@ -99,45 +147,58 @@
         .login-link {
             margin-top: 15px;
             font-size: 14px;
+            color: #666;
         }
 
         .login-link a {
-            color: #d1d1d1;
+            color: #3281c4;
             text-decoration: none;
         }
 
         .login-link a:hover {
-            color: #fff;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Sign Up</h1>
-        <% if (typeof message !== 'undefined') { %>
-            <!-- <div class="message <%= message.type %>"><%= message.text %></div> -->
-        <% } %>
-        <form action="/api/signup" method="POST">
-            <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" required />
+        <div class="left-section">
+            <div class="logo">⭐</div>
+            <h1>Welcome to URL Pro</h1>
+            <p>
+                Make Every Link Count – Shorten and Optimize with URL Pro!
+            </p>
+            <p>© 2022 URLPro. All rights reserved.</p>
+          </div>
+        <div class="right-section">
+            <div class="signup-form">
+                <h2>Sign Up</h2>
+                <% if (typeof message !== 'undefined') { %>
+                    <!-- <div class="message <%= message.type %>"><%= message.text %></div> -->
+                <% } %>
+                <form action="/api/signup" method="POST">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required />
+                    </div>
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+                <div class="login-link">
+                    Already have an account? <a href="/">Log In</a>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" required />
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required />
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required />
-            </div>
-            <button type="submit" class="btn">Sign Up</button>
-        </form>
-        <div class="login-link">
-            Already have an account? <a href="/">Log In</a>
         </div>
     </div>
 </body>

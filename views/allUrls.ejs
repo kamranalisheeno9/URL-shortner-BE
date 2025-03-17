@@ -70,7 +70,10 @@
         gap: 20px;
         align-items: center;
       }
-
+      .nav-links p {
+        color: white;
+        margin-right: 16px;
+      }
       .nav-links a {
         text-decoration: none;
         font-size: 16px;
@@ -164,6 +167,7 @@
         <a href="/"> URLPro <span>Shortener</span></a>
       </div>
       <div class="nav-links">
+        <p>Welcome <%= currentUser %></p>
         <a href="/url/list">URL List</a>
         <a onclick="logoutUser" id="logout">Logout</a>
       </div>
@@ -248,10 +252,11 @@
     <div class="wave"></div>
     <script>
       const logoutBtn = document.getElementById("logout");
-      
+
       if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
-          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+          document.cookie =
+            "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
           window.location.replace("/");
         });
       }

@@ -164,12 +164,15 @@
     <!-- Main 404 Section -->
     <div class="main-container">
       <h1>404</h1>
-      <h2>Page Not Found</h2>
+      <h2><%= customMessage ? customMessage : "Page Not Found" %></h2>
       <p>
-        Oops! It seems the URL you’re looking for has gone missing. Let’s get
-        you back on track.
+        Oops! It seems the <%= customMessage ? 'user' : "URL" %> you’re looking
+        for has gone missing. Let’s get you back on track.
       </p>
-      <a href="/" class="back-btn">Back to Home</a>
+
+      <a href="<%= customMessage ? '/' : '/url' %>" class="back-btn"
+        >Back to <%= customMessage ? 'Login' : 'Home'%>
+      </a>
     </div>
 
     <!-- Wavy Background -->
