@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
-const setJwtForLogin = (user, secret) => {
-  console.log("user", user);
+const setJWTAccessTokenForLogin = (user, secret) => {
+  // console.log("user", user);
   const token = jwt.sign(
     {
       id: user._id,
@@ -9,11 +9,25 @@ const setJwtForLogin = (user, secret) => {
       name: user.firstName,
     },
     secret,
-    { expiresIn: 60 * 60 }
+    { expiresIn: "1m" }
+  );
+  return token;
+};
+const setJWTRefreshTokenForLogin = (user, secret) => {
+  // console.log("user", user);
+  const token = jwt.sign(
+    {
+      id: user._id,
+      email: user.email,
+      name: user.firstName,
+    },
+    secret,
+    { expiresIn: "7d" }
   );
   return token;
 };
 
 module.exports = {
-  setJwtForLogin,
+  setJWTAccessTokenForLogin,
+  setJWTRefreshTokenForLogin,
 };

@@ -1,16 +1,16 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const secretKey = process.env.JWT_SECRET;
+const secretKey = process.env.JWT_ACCESS_SECRET;
 
 const restrictTheUserToUrl = (req, res, next) => {
   try {
-    const token = req.cookies?.token;
+    const accessToken = req.cookies?.token;
 
-    if (!token) {
+    if (!accessToken) {
       return res.status(401).redirect("/");
     }
 
-    const user = jwt.verify(token, secretKey);
+    const user = jwt.verify(accessToken, secretKey);
 
     if (!user) {
       return res.status(401).redirect("/");
@@ -20,20 +20,22 @@ const restrictTheUserToUrl = (req, res, next) => {
     next();
   } catch (error) {
     console.error("Authentication error:", error.message);
+
     res.status(401).redirect("/");
   }
 };
 
 const restrictTheUserToLogin = (req, res, next) => {
   try {
-    const token = req.cookies?.token;
+    const accessToken = req.cookies?.token;
 
-    if (token) {
-      const user = jwt.verify(token, secretKey);
+    if (accessToken) {
+      const user = jwt.verify(accessToken, secretKey);
       if (user) {
         return res.redirect("/url");
       }
     }
+    console.log("token", accessToken);
 
     next();
   } catch (error) {

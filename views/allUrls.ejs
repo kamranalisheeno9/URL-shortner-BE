@@ -207,12 +207,6 @@
                 %> Minutes <% } else { %> No Expiry <% } %>
               </td>
               <td>
-                <!-- Update Button
-                <a href="">
-                  <button>Update</button>
-                </a> -->
-                <!-- Delete Button -->
-
                 <button
                   type="submit"
                   class="delete-btn"
@@ -247,7 +241,6 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/script.js"></script>
     <!-- Wavy Background -->
     <div class="wave"></div>
     <script>
@@ -260,6 +253,18 @@
           window.location.replace("/");
         });
       }
+      const getShortenedURLDeleted = async (id) => {
+        try {
+          const response = await axios.delete(`/api/urls/${id}`);
+          location.reload();
+          console.log("Response", response);
+        } catch (error) {
+          // if (error == "jwt expired") {
+          //   res.clearCookie("token", { path: "/" });
+          // }
+          console.log("Error", error);
+        }
+      };
     </script>
   </body>
 </html>

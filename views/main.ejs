@@ -258,7 +258,7 @@
               type="number"
               class="expire-input"
               id="expire-input"
-              name="expiresAt"
+              name="expires"
               placeholder="Minutes"
               value="0"
               required
@@ -278,8 +278,6 @@
 
     <!-- Wavy Background -->
     <div class="wave"></div>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/script.js"></script> -->
     <script>
       const logoutBtn = document.getElementById("logout");
 
@@ -293,7 +291,6 @@
       const expiresAtValue = Number(
         document.getElementById("expire-input").value
       );
-      console.log(typeof expiresAtValue, expiresAtValue);
     </script>
   </body>
 </html>

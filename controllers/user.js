@@ -1,8 +1,12 @@
 const User = require("../models/user");
 const { errorHandler } = require("../helpers/errorHandler");
-const { setJwtForLogin } = require("../services/auth");
+const {
+  setJWTAccessTokenForLogin,
+  setJWTRefreshTokenForLogin,
+} = require("../services/auth");
 require("dotenv").config();
-const secretKey = process.env.JWT_SECRET;
+const accessSecretKey = process.env.JWT_ACCESS_SECRET;
+const refreshSecretKey = process.env.JWT_REFRESH_SECRET;
 const {
   getSessionIdMapToUser,
   setSessionIdMapToUser,
@@ -21,7 +25,7 @@ const handleUserSignup = async (req, res) => {
       email,
       password,
     });
-    console.log("Result", result);
+    // console.log("Result", result);
     return res.status(201).redirect("/url");
   } catch (error) {
     errorHandler(res, error);
@@ -50,10 +54,17 @@ const handleUserLogin = async (req, res) => {
         customMessage: "User not found",
       });
     }
-    // const sessionId = uuidv4();
 
-    const token = setJwtForLogin(currentUser, secretKey);
-    res.cookie("token", token);
+    const accessToken = setJWTAccessTokenForLogin(currentUser, accessSecretKey);
+    const refreshToken = setJWTRefreshTokenForLogin(
+      currentUser,
+      refreshSecretKey
+    );
+    await User.findByIdAndUpdate(currentUser._id, { refreshToken });
+    res.cookie("token", accessToken);
+    res.cookie("refreshToken", refreshToken);
+
+
     return res.status(200).redirect("/url");
   } catch (error) {
     errorHandler(res, error);

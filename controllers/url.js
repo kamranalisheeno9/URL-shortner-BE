@@ -24,7 +24,7 @@ const handleURLCreation = async (req, res) => {
       createdBy: user.id,
       clicks: 0,
     });
-    return res.status(201).redirect('/url/list')
+    return res.status(201).redirect("/url/list");
   } catch (error) {
     errorHandler(res, error);
   }
